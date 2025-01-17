@@ -12,7 +12,7 @@ module.exports = {
       jsx: true,
     },
     project: "./tsconfig.json", // TypeScript 설정 파일 경로
-    extraFileExtensions: [".js"],
+    extraFileExtensions: [".json"],
   },
   plugins: ["@atlaskit/design-system", "@typescript-eslint"],
   extends: [
