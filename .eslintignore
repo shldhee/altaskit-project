@@ -3,3 +3,4 @@ webpack.config.js
 tsconfig.json
 babel.config.js
 index.html
+package.json

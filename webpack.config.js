@@ -43,7 +43,18 @@ module.exports = {
         // 일반 CSS 처리
         test: /\.css$/,
         exclude: /compiled-css\.css$/i, // 컴파일된 CSS 제외
-        use: ["style-loader", "css-loader"],
+        use: [
+          "style-loader",
+          "css-loader",
+          {
+            loader: "postcss-loader", // PostCSS 처리
+            options: {
+              postcssOptions: {
+                plugins: [require("tailwindcss"), require("autoprefixer")],
+              },
+            },
+          },
+        ],
       },
     ],
   },

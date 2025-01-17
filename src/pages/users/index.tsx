@@ -10,8 +10,10 @@ const UserList = () => {
       <ul>
         {data?.map((user) => (
           <Fragment key={user.id}>
-            <li>{user.name}</li>
-            <li>{user.email}</li>
+            <li className="">
+              <span>{user.name}</span>
+              <span>{user.email}</span>
+            </li>
           </Fragment>
         ))}
       </ul>
