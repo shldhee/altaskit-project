@@ -9,6 +9,7 @@ import { Link, Route, Routes } from "react-router-dom";
 
 const App = () => {
   const { t } = useTranslation();
+
   return (
     <>
       <div>

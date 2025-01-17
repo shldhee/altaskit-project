@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const { CompiledExtractPlugin } = require("@compiled/webpack-loader");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
+
 module.exports = {
   entry: "./src/index.tsx",
   output: {
@@ -50,6 +52,13 @@ module.exports = {
     new CompiledExtractPlugin({ sortShorthand: true }),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
+    }),
+    new ESLintPlugin({
+      emitWarning: true, // 브라우저에 ESLint 결과를 표시할지를 결정해요.
+      // 대상 파일 확장자를 지정해요.
+      // eslint.config.js에서 설정하더라도 여기서 설정을 해야 해요.
+      extensions: ["js", "jsx", "ts", "tsx"],
+      exclude: "node_modules", // 제외할 디렉토리를 지정해요.
     }),
   ],
   devServer: {
