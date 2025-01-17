@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button/Button";
 import Home from "@/pages";
 import UserList from "@/pages/users";
 import React from "react";
@@ -12,10 +13,14 @@ const App = () => {
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">
+              <Button>Home</Button>
+            </Link>
           </li>
           <li>
-            <Link to="/users">Users</Link>
+            <Link to="/users">
+              <Button>Users</Button>
+            </Link>
           </li>
         </ul>
       </nav>
