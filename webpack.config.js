@@ -38,7 +38,9 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
-        test: /(?<!compiled-css)(?<!\.compiled)\.css$/,
+        // 일반 CSS 처리
+        test: /\.css$/,
+        exclude: /compiled-css\.css$/i, // 컴파일된 CSS 제외
         use: ["style-loader", "css-loader"],
       },
     ],
