@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button/Button";
+import { Button } from "@/components/ui/Button";
 import { LANGUEAGES } from "@/constants/languages";
 import Home from "@/pages";
 import UserList from "@/pages/users";
