@@ -7,7 +7,6 @@ import { usePagination } from "@/hooks/usePagination";
 import { usePostsQuery } from "@/services/post/usePostsQuery";
 import { Post } from "@/types/post";
 import { formatISODate } from "@/utils/date";
-// import { DatePicker } from "@atlaskit/datetime-picker";
 import { Label } from "@atlaskit/form";
 import Pagination from "@atlaskit/pagination";
 import SectionMessage from "@atlaskit/section-message";
@@ -23,6 +22,15 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
+const convertPaginatedData = (data: Post[]) =>
+  data.map((post) => ({
+    id: String(post.id),
+    userId: post.userId,
+    title: post.title,
+    createdAt: post.createdAt,
+    content: post.content,
+  }));
+
 const PostList = () => {
   const { t } = useTranslation();
   const { data, isLoading, isError } = usePostsQuery();
@@ -30,36 +38,30 @@ const PostList = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [filteredData, setFilteredData] = useState(data || []);
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [startDate, setStartDate] = useState<string | undefined>(undefined);
+  const [endDate, setEndDate] = useState<string | undefined>(undefined);
 
-  useEffect(() => {
-    setFilteredData(data || []);
-  }, [data]);
-
-  const handleSuggestions = (value: string) => {
-    setSuggestions(value === "" ? [] : getMatchedSuggestions(value));
-  };
-
-  const getMatchedSuggestions = (value: string) =>
-    (data || [])
-      .filter((post) => post.title.toLowerCase().includes(value.toLowerCase()))
-      .map((post) => post.title)
-      .slice(0, 5);
+  const { setCurrentPage, paginatedData, totalPages } = usePagination({
+    data: filteredData || [],
+    itemsPerPage: PER_PAGE,
+  });
 
   const handleSearch = () => {
-    const filteredByKeyword = applyKeywordFilter();
+    const filteredByKeyword = applyKeywordFilter(data || []);
     const filteredByDate = applyDateFilter(filteredByKeyword);
     setFilteredData(filteredByDate);
+    setSuggestions([]);
+    setCurrentPage(1);
   };
 
-  const applyKeywordFilter = () => {
-    return searchKeyword.trim() === "" ? getAllData() : getFilteredData();
-  };
+  const applyKeywordFilter = (data: Post[]) =>
+    searchKeyword.trim() === ""
+      ? data
+      : data.filter((post) =>
+          post.title.toLowerCase().includes(searchKeyword.toLowerCase())
+        );
 
   const applyDateFilter = (data: Post[]) => {
-    return filterByDate(data);
-  };
-
-  const filterByDate = (data: Post[]) => {
     if (!startDate || !endDate) return data;
 
     return data.filter((post) => {
@@ -71,28 +73,19 @@ const PostList = () => {
     });
   };
 
-  const getAllData = () => data || [];
+  const handleSuggestions = (value: string) => {
+    setSuggestions(value === "" ? [] : getMatchedSuggestions(value));
+  };
 
-  const getFilteredData = () =>
-    (data || []).filter((post) =>
-      post.title.toLowerCase().includes(searchKeyword.toLowerCase())
-    );
+  const getMatchedSuggestions = (value: string) =>
+    (data || [])
+      .filter((post) => post.title.toLowerCase().includes(value.toLowerCase()))
+      .map((post) => post.title)
+      .slice(0, 5);
 
-  const { setCurrentPage, paginatedData, totalPages } = usePagination({
-    data: filteredData || [],
-    itemsPerPage: PER_PAGE,
-  });
-
-  const convertPaginatedData = paginatedData.map((post) => ({
-    id: String(post.id),
-    userId: post.userId,
-    title: post.title,
-    createdAt: post.createdAt,
-    content: post.content,
-  }));
-
-  const [startDate, setStartDate] = useState<string | undefined>(undefined);
-  const [endDate, setEndDate] = useState<string | undefined>(undefined);
+  useEffect(() => {
+    setFilteredData(data || []);
+  }, [data]);
 
   if (isLoading) {
     return (
@@ -174,7 +167,7 @@ const PostList = () => {
           <Header width={200}>{t("post.createdAt")}</Header>
         </Headers>
         <Rows
-          items={convertPaginatedData}
+          items={convertPaginatedData(paginatedData)}
           render={({ id, userId, title, createdAt, children = [] }) => (
             <Link to={`/posts/${id}`}>
               <Row
