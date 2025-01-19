@@ -15,8 +15,10 @@ const resources = {
       name: "Name",
       email: "Email",
       search: "Search",
+      Edit: "Edit",
       "Please-enter-a-search-term": "Please enter a search term",
       "User-List": "User List",
+      "User-Detail": "User Detail",
     },
   },
   ko: {
@@ -28,8 +30,10 @@ const resources = {
       name: "이름",
       email: "이메일",
       search: "검색",
+      Edit: "수정",
       "Please-enter-a-search-term": "검색어를 입력해주세요",
       "User-List": "사용자 목록",
+      "User-Detail": "사용자 정보",
     },
   },
 };
