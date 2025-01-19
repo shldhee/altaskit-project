@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-html-button */
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { PER_PAGE } from "@/constants/constants";
@@ -25,10 +26,21 @@ const PostList = () => {
 
   const [searchKeyword, setSearchKeyword] = useState("");
   const [filteredData, setFilteredData] = useState(data || []);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
 
   useEffect(() => {
     setFilteredData(data || []);
   }, [data]);
+
+  const handleSuggestions = (value: string) => {
+    setSuggestions(value === "" ? [] : getMatchedSuggestions(value));
+  };
+
+  const getMatchedSuggestions = (value: string) =>
+    (data || [])
+      .filter((post) => post.title.toLowerCase().includes(value.toLowerCase()))
+      .map((post) => post.title)
+      .slice(0, 5);
 
   const handleSearch = () => {
     setFilteredData(
@@ -78,16 +90,39 @@ const PostList = () => {
     <div>
       <h2 className="text-2xl font-semibold mb-4">{t("Post-List")}</h2>
 
-      <div className="w-4/5 max-w-80 mb-4">
+      <div className="w-4/5 max-w-80 mb-4 relative">
         <Label htmlFor={"title"}>제목</Label>
         <Input
           id="title"
           placeholder={t("Search by title")}
           value={searchKeyword}
-          onChange={(e) => setSearchKeyword(e.currentTarget.value)}
+          onChange={(e) => {
+            const value = e.currentTarget.value;
+            setSearchKeyword(value);
+            handleSuggestions(value);
+          }}
         />
+        {suggestions.length > 0 && (
+          <ul className="absolute bg-white border border-gray-300 w-full z-10 max-h-40 overflow-y-auto">
+            {suggestions.map((suggestion, index) => (
+              <li key={index}>
+                <button
+                  className="px-4 py-2 hover:bg-gray-100 w-full cursor-pointer text-left"
+                  onClick={() => {
+                    setSearchKeyword(suggestion);
+                    setSuggestions([]);
+                  }}
+                >
+                  {suggestion}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-      <Button onClick={handleSearch}>검색</Button>
+      <Button appearance="primary" onClick={handleSearch}>
+        {t("Search")}
+      </Button>
 
       <TableTree>
         <Headers>
