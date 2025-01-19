@@ -65,7 +65,7 @@ const PostList = () => {
     if (!startDate || !endDate) return data;
 
     if (new Date(startDate) > new Date(endDate)) {
-      alert("시작일이 종료일보다 클 수 없습니다.");
+      alert(t("startDateGreaterThanEndDate"));
       return data;
     }
 
@@ -115,10 +115,10 @@ const PostList = () => {
       <h2 className="text-2xl font-semibold mb-4">{t("Post-List")}</h2>
 
       <div className="w-4/5 max-w-80 mb-4 relative">
-        <Label htmlFor={"title"}>제목</Label>
+        <Label htmlFor={"title"}>{t("post.title")}</Label>
         <Input
           id="title"
-          placeholder={t("Search by title")}
+          placeholder={t("post.search-by-title")}
           value={searchKeyword}
           onChange={(e) => {
             const value = e.currentTarget.value;
@@ -146,7 +146,7 @@ const PostList = () => {
       </div>
       <div className="w-4/5 max-w-80">
         <DatePicker
-          label="Start Date"
+          label={t("startDate")}
           id="start-date-picker"
           clearControlLabel="Clear start date"
           onChange={(date) => setStartDate(date)}
@@ -154,14 +154,14 @@ const PostList = () => {
       </div>
       <div className="w-4/5 max-w-80 mb-4">
         <DatePicker
-          label="End Date"
+          label={t("endDate")}
           id="end-date-picker"
           clearControlLabel="Clear end date"
           onChange={(date) => setEndDate(date)}
         />
       </div>
       <Button appearance="primary" onClick={handleSearch}>
-        {t("Search")}
+        {t("search")}
       </Button>
 
       <TableTree>
@@ -197,7 +197,6 @@ const PostList = () => {
           pages={totalPages}
           previousLabel="Previous"
           onChange={(_, page: number) => {
-            console.log({ page });
             setCurrentPage(page);
           }}
         />

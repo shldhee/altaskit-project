@@ -24,6 +24,8 @@ const resources = {
       complete: "Complete",
       incomplete: "Incomplete",
       Error: "Error",
+      startDate: "Start Date",
+      endDate: "End Date",
       post: {
         id: "Id",
         userId: "UserId",
@@ -38,7 +40,9 @@ const resources = {
         "no-comments-yet": "No comments yet",
         "no-comments-yet-placeholder": "Be the first to add a comment!",
         "back-to-list": "Back to List",
+        "search-by-title": "Search by title",
       },
+      startDateGreaterThanEndDate: "Start date cannot be greater than end date",
       "Failed-to-fetch": "Failed to fetch. Please try again later.",
       "Please-enter-a-search-term": "Please enter a search term",
       "User-List": "User List",
@@ -66,6 +70,8 @@ const resources = {
       complete: "완료",
       incomplete: "미완료",
       Error: "오류",
+      startDate: "시작일",
+      endDate: "종료일",
       post: {
         id: "번호",
         userId: "사용자번호",
@@ -80,7 +86,9 @@ const resources = {
         "no-comments-yet": "댓글이 없습니다",
         "no-comments-yet-placeholder": "첫 번째 댓글을 추가해보세요!",
         "back-to-list": "목록으로 돌아가기",
+        "search-by-title": "제목으로 검색",
       },
+      startDateGreaterThanEndDate: "시작일은 종료일보다 클 수 없습니다",
       "Failed-to-fetch":
         "데이터를 불러오는데 실패했습니다. 잠시 후 다시 시도해주세요.",
       "Please-enter-a-search-term": "검색어를 입력해주세요",
