@@ -1,5 +1,11 @@
-const formatISODate = (isoDateString: string) => {
+const formatISODate = (isoDateString: string | undefined) => {
+  if (!isoDateString) return null;
+
   const date = new Date(isoDateString);
+
+  if (isNaN(date.getTime())) {
+    return null;
+  }
 
   const formattedDate = date.toLocaleDateString("ko-KR", {
     year: "numeric",
