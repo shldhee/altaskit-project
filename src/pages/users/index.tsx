@@ -113,7 +113,7 @@ const UserList = () => {
             onChange={(e) => {
               const value = e.currentTarget.value;
               setSearchKeyword(value);
-              handleSuggestions(value); // debounce 적용
+              handleSuggestions(value);
             }}
           />
           {suggestions.length > 0 && (

@@ -1,4 +1,3 @@
-// Enum-like 객체와 타입 정의
 const IconTypes = {
   CHECK: "check",
   UNCHECK: "unCheck",

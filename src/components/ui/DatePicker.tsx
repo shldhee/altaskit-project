@@ -4,7 +4,6 @@ import {
   DatePickerProps,
 } from "@atlaskit/datetime-picker";
 
-// ISO 변환 함수
 const toISODate = (date: string): string => new Date(date).toISOString();
 
 const DatePicker = ({
