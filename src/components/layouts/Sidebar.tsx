@@ -16,6 +16,7 @@ const SIDEBAR_LINKS = [
   { path: "/", label: "HOME" },
   { path: "/users", label: "USERS" },
   { path: "/todos", label: "TODOS" },
+  { path: "/posts", label: "POSTS" },
 ];
 
 const Sidebar = () => {

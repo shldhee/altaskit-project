@@ -1,4 +1,6 @@
 import Home from "@/pages";
+import PostList from "@/pages/posts";
+import PostDetail from "@/pages/posts/detail";
 import TodoList from "@/pages/todos";
 import UserList from "@/pages/users";
 import UserDetail from "@/pages/users/detail";
@@ -13,6 +15,8 @@ const AppRoutes = () => (
     <Route path="/users/:userId" element={<UserDetail />} />
     <Route path="/users/:userId/edit" element={<UserEdit />} />
     <Route path="/todos" element={<TodoList />} />
+    <Route path="/posts" element={<PostList />} />
+    <Route path="/posts/:postId" element={<PostDetail />} />
   </Routes>
 );
 
