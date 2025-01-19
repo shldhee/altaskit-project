@@ -47,6 +47,13 @@ const resources = {
         "back-to-list": "Back to List",
         "search-by-title": "Search by title",
       },
+      todo: {
+        id: "Id",
+        userId: "UserId",
+        title: "Title",
+        completed: "Completed",
+        incomplete: "Incomplete",
+      },
       startDateGreaterThanEndDate: "Start date cannot be greater than end date",
       "Failed-to-fetch": "Failed to fetch. Please try again later.",
       "Please-enter-a-search-term": "Please enter a search term",
@@ -97,6 +104,13 @@ const resources = {
         "no-comments-yet-placeholder": "첫 번째 댓글을 추가해보세요!",
         "back-to-list": "목록으로 돌아가기",
         "search-by-title": "제목으로 검색",
+      },
+      todo: {
+        id: "번호",
+        userId: "사용자번호",
+        title: "할 일",
+        completed: "완료",
+        incomplete: "미완료",
       },
       startDateGreaterThanEndDate: "시작일은 종료일보다 클 수 없습니다",
       "Failed-to-fetch":

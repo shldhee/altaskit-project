@@ -52,15 +52,20 @@ const TodoList = () => {
           (content: Todo) => (
             <span>
               {content.completed ? (
-                <Icon type="check" label={t("complete")} />
+                <Icon type="check" label={t("todo.completed")} />
               ) : (
-                <Icon type="unCheck" label={t("complete")} />
+                <Icon type="unCheck" label={t("todo.incomplete")} />
               )}
             </span>
           ),
         ]}
-        headers={["Id", "UserId", t("title"), t("complete")]}
-        columnWidths={["100px", "100px", "300px", "130px"]}
+        headers={[
+          t("todo.id"),
+          t("todo.userId"),
+          t("todo.title"),
+          t("todo.completed"),
+        ]}
+        columnWidths={["100px", "150px", "300px", "130px"]}
       />
     </div>
   );
