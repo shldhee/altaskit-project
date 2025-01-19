@@ -1,4 +1,4 @@
-import { Sidebar } from "@/components/layouts/\bSidebar";
+import { Sidebar } from "@/components/layouts/Sidebar";
 import { AppRoutes } from "@/routes/AppRoutes";
 import { Content, LeftSidebar, Main, PageLayout } from "@atlaskit/page-layout";
 import React from "react";
