@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/Button";
 import { DatePicker } from "@/components/ui/DatePicker";
 import { Input } from "@/components/ui/Input";
+import { Table } from "@/components/ui/Table";
 import { PER_PAGE } from "@/constants/constants";
 import { usePagination } from "@/hooks/usePagination";
 import { usePostsQuery } from "@/services/post/usePostsQuery";
@@ -11,13 +12,7 @@ import { Label } from "@atlaskit/form";
 import Pagination from "@atlaskit/pagination";
 import SectionMessage from "@atlaskit/section-message";
 import Spinner from "@atlaskit/spinner";
-import TableTree, {
-  Cell,
-  Header,
-  Headers,
-  Row,
-  Rows,
-} from "@atlaskit/table-tree";
+import { Cell, Header, Headers, Row, Rows } from "@atlaskit/table-tree";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -164,7 +159,7 @@ const PostList = () => {
         {t("search")}
       </Button>
 
-      <TableTree>
+      <Table>
         <Headers>
           <Header width={100}>{t("post.id")}</Header>
           <Header width={120}>{t("post.userId")}</Header>
@@ -188,7 +183,7 @@ const PostList = () => {
             </Link>
           )}
         />
-      </TableTree>
+      </Table>
       <div className="my-4 flex justify-center">
         <Pagination
           nextLabel="Next"

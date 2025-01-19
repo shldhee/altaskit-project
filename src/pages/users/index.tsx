@@ -5,10 +5,9 @@ import { Select } from "@/components/ui/Select";
 import { Table } from "@/components/ui/Table";
 import { useUsersQuery } from "@/services/user/useUsersQuery";
 import React, { useEffect, useMemo, useState } from "react";
+import { Cell, Header, Headers, Row, Rows } from "@atlaskit/table-tree";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-
-type Content = { id: number; name: string; email: string };
 
 interface UserSearchFilterOption {
   label: string;
@@ -26,12 +25,8 @@ const UserList = () => {
   const tableItems = useMemo(() => {
     return data?.map((user) => ({
       id: String(user.id),
-      content: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-      },
-      hasChildren: false,
+      name: user.name,
+      email: user.email,
     }));
   }, [data]);
 
@@ -47,26 +42,20 @@ const UserList = () => {
     translatedOptions[0]
   );
   const [searchKeyword, setSearchKeyword] = useState<string>("");
-  const [autoCompleteSearchKeyword, setAutoCompleteSearchKeyword] = useState<
-    string[]
-  >([]);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [filteredData, setFilteredData] = useState(tableItems || []);
-
-  useEffect(() => {
-    setFilteredData(tableItems || []);
-  }, [tableItems]);
 
   const handleAutoComplete = (value: string) => {
     if (value === "") return resetAutoComplete();
 
-    const autoCompleteSearchKeyword = getFilteredKeywords({
+    const suggestions = getFilteredKeywords({
       value,
       filterKey: searchFilter.value,
     });
-    setAutoCompleteSearchKeyword(autoCompleteSearchKeyword || []);
+    setSuggestions(suggestions || []);
   };
 
-  const resetAutoComplete = () => setAutoCompleteSearchKeyword([]);
+  const resetAutoComplete = () => setSuggestions([]);
 
   const getFilteredKeywords = ({
     value,
@@ -88,6 +77,10 @@ const UserList = () => {
     setFilteredData(filteredData || []);
   };
 
+  useEffect(() => {
+    setFilteredData(tableItems || []);
+  }, [tableItems]);
+
   const getFilteredData = ({
     data,
     filterKey,
@@ -96,7 +89,7 @@ const UserList = () => {
     data: typeof tableItems;
     filterKey: (typeof UserSearchFilterValues)[keyof typeof UserSearchFilterValues];
     keyword: string;
-  }) => data?.filter((item) => item.content[filterKey].includes(keyword));
+  }) => data?.filter((item) => item[filterKey].includes(keyword));
 
   return (
     <div>
@@ -123,15 +116,15 @@ const UserList = () => {
               handleAutoComplete(value); // debounce 적용
             }}
           />
-          {autoCompleteSearchKeyword.length > 0 && (
+          {suggestions.length > 0 && (
             <ul className="absolute  bg-white py-1 w-full z-10">
-              {autoCompleteSearchKeyword.map((keyword, index) => (
+              {suggestions.map((keyword, index) => (
                 <li key={index} className="">
                   <button
                     className="px-2 py-1 w-full text-left hover:bg-gray-200"
                     onClick={() => {
                       setSearchKeyword(keyword);
-                      setAutoCompleteSearchKeyword([]);
+                      setSuggestions([]);
                     }}
                   >
                     {keyword}
@@ -147,20 +140,29 @@ const UserList = () => {
           {t("search")}
         </Button>
       </div>
-      <Table
-        items={filteredData}
-        columns={[
-          (content: Content) => <span>{content.id}</span>,
-          (content: Content) => (
-            <Link to={`/users/${content.id}`}>
-              <Button>{content.name}</Button>
+      <Table>
+        <Headers>
+          <Header width={100}>{t("user.id")}</Header>
+          <Header width={120}>{t("user.name")}</Header>
+          <Header width={500}>{t("user.email")}</Header>
+        </Headers>
+        <Rows
+          items={filteredData}
+          render={({ id, name, email, children = [] }) => (
+            <Link to={`/users/${id}`}>
+              <Row
+                itemId={id}
+                items={children}
+                hasChildren={children.length > 0}
+              >
+                <Cell>{id}</Cell>
+                <Cell>{name}</Cell>
+                <Cell>{email}</Cell>
+              </Row>
             </Link>
-          ),
-          (content: Content) => <span>{content.email}</span>,
-        ]}
-        headers={["Id", t("name"), t("email")]}
-        columnWidths={["100px", "150px"]}
-      />
+          )}
+        />
+      </Table>
     </div>
   );
 };

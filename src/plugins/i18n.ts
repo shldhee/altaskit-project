@@ -26,6 +26,11 @@ const resources = {
       Error: "Error",
       startDate: "Start Date",
       endDate: "End Date",
+      user: {
+        id: "Id",
+        name: "Name",
+        email: "Email",
+      },
       post: {
         id: "Id",
         userId: "UserId",
@@ -72,6 +77,11 @@ const resources = {
       Error: "오류",
       startDate: "시작일",
       endDate: "종료일",
+      user: {
+        id: "번호",
+        name: "이름",
+        email: "이메일",
+      },
       post: {
         id: "번호",
         userId: "사용자번호",
