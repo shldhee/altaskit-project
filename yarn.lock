@@ -313,6 +313,23 @@
     "@babel/runtime" "^7.0.0"
     "@emotion/react" "^11.7.1"
 
+"@atlaskit/pagination@^15.0.2":
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/@atlaskit/pagination/-/pagination-15.0.2.tgz#1ed07e75c34c13eaf4e1c6c8bd515a42f09871ac"
+  integrity sha512-DhZutHMQwOfGejHwgQHg9DnW5W84g+RNZ7MV2kaWnA0OKx4D/VyLt5C7M0GkhnhRDgt6VIE719yto1S1ZhWVNQ==
+  dependencies:
+    "@atlaskit/analytics-next" "^10.2.0"
+    "@atlaskit/button" "^20.3.0"
+    "@atlaskit/codemod-utils" "^4.2.0"
+    "@atlaskit/css" "^0.7.0"
+    "@atlaskit/ds-lib" "^3.3.0"
+    "@atlaskit/icon" "^23.4.0"
+    "@atlaskit/primitives" "^13.3.0"
+    "@atlaskit/tokens" "^3.1.0"
+    "@atlaskit/visually-hidden" "^1.5.0"
+    "@babel/runtime" "^7.0.0"
+    memoize-one "^6.0.0"
+
 "@atlaskit/platform-feature-flags@0.3.0", "@atlaskit/platform-feature-flags@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@atlaskit/platform-feature-flags/-/platform-feature-flags-0.3.0.tgz#94dfa0a4ef0a140f6ab0a6de006464de925ecea7"

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/Button";
-import { LANGUEAGES } from "@/constants/languages";
+import { LANGUEAGES } from "@/constants/constants";
+
 import { changeLanguage } from "@/utils/changeLanguage";
 import {
   Header,

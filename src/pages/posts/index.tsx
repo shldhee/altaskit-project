@@ -1,5 +1,8 @@
+import { PER_PAGE } from "@/constants/constants";
+import { usePagination } from "@/hooks/usePagination";
 import { usePostsQuery } from "@/services/post/usePostsQuery";
 import { formatISODate } from "@/utils/date";
+import Pagination from "@atlaskit/pagination";
 import SectionMessage from "@atlaskit/section-message";
 import Spinner from "@atlaskit/spinner";
 import TableTree, {
@@ -16,8 +19,12 @@ import { Link } from "react-router-dom";
 const PostList = () => {
   const { t } = useTranslation();
   const { data, isLoading, isError } = usePostsQuery();
+  const { setCurrentPage, paginatedData, totalPages } = usePagination({
+    data: data || [],
+    itemsPerPage: PER_PAGE,
+  });
 
-  const tableItems = data?.map((post) => ({
+  const convertPaginatedData = paginatedData.map((post) => ({
     id: String(post.id),
     userId: post.userId,
     title: post.title,
@@ -54,7 +61,7 @@ const PostList = () => {
           <Header width={200}>{t("post.createdAt")}</Header>
         </Headers>
         <Rows
-          items={tableItems}
+          items={convertPaginatedData}
           render={({ id, userId, title, createdAt, children = [] }) => (
             <Link to={`/posts/${id}`}>
               <Row
@@ -64,13 +71,26 @@ const PostList = () => {
               >
                 <Cell>{id}</Cell>
                 <Cell>{userId}</Cell>
-                <Cell singleLine>{title}</Cell>
+                <Cell>{title}</Cell>
                 <Cell>{formatISODate(createdAt)}</Cell>
               </Row>
             </Link>
           )}
         />
       </TableTree>
+      <div className="my-4 flex justify-center">
+        <Pagination
+          nextLabel="Next"
+          label="Page"
+          pageLabel="Page"
+          pages={totalPages}
+          previousLabel="Previous"
+          onChange={(_, page: number) => {
+            console.log({ page });
+            setCurrentPage(page);
+          }}
+        />
+      </div>
     </div>
   );
 };
