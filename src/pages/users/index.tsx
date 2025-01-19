@@ -141,7 +141,11 @@ const UserList = () => {
             </ul>
           )}
         </div>
-        <Button onClick={handleClickSearch}>{t("search")}</Button>
+      </div>
+      <div className="my-4">
+        <Button onClick={handleClickSearch} appearance="primary">
+          {t("search")}
+        </Button>
       </div>
       <Table
         items={filteredData}

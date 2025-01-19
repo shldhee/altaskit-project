@@ -1,5 +1,7 @@
+import { Input } from "@/components/ui/Input";
 import { useUserQuery } from "@/services/user/useUserQuery";
 import { LinkButton } from "@atlaskit/button/new";
+import { Label } from "@atlaskit/form";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -13,12 +15,13 @@ const UserDetail = () => {
   return (
     <div>
       <h2 className="text-2xl font-semibold mb-4">{t("User-Detail")}</h2>
-      <div className="inline-flex gap-4 flex-col">
+      <div className="w-4/5 max-w-80">
         <ul>
           {data &&
             Object.entries(data).map(([key, value]) => (
-              <li className="py-1 px-4 bg-slate-100" key={key}>
-                {t(key)} : {value}
+              <li key={key}>
+                <Label htmlFor={key}>{t(key)}</Label>
+                <Input id={key} value={value} isDisabled />
               </li>
             ))}
         </ul>

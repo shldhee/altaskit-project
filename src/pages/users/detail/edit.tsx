@@ -1,94 +1,86 @@
-// import useUserQuery from "@/services/user/useUserQuery";
-// import useUserUpdate from "@/services/user/useUserUpdate";
 import { useUserQuery } from "@/services/user/useUserQuery";
-// import useUserUpdate from "@/services/user/useUserUpdate";
+import { UpdatableUser } from "@/types/user";
 import Button from "@atlaskit/button/new";
-import React from "react";
-import { useParams } from "react-router-dom";
+import Form, { Field, FormFooter } from "@atlaskit/form";
+import Textfield from "@atlaskit/textfield";
+import React, { Fragment } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate, useParams } from "react-router-dom";
 
 const UserEdit = () => {
   const { userId } = useParams();
-  const { data: user } = useUserQuery(Number(userId));
-  // const { updateUserMutation } = useUserUpdate();
+  const { t } = useTranslation();
+  const { data: user, isLoading } = useUserQuery(Number(userId));
+  const navigate = useNavigate();
 
-  console.log({ user });
-
-  const handleUpdate = async () => {
+  const handleSubmit = async (formData: UpdatableUser) => {
     if (!user) return;
 
-    console.log("update user", user);
-
-    // await updateUserMutation({
-    //   id: user.id,
-    //   user: {
-    //     name: "test",
-    //     email: "test@gmail.com",
-    //   },
-    // });
+    try {
+      // 수정 API 요청
+      // await updateUserMutation.mutateAsync({
+      //   id: user.id,
+      //   user: {
+      //     name: formData.name,
+      //     email: formData.email,
+      //   },
+      // });
+      alert("유저 정보 수정 성공");
+      navigate("/users");
+    } catch (error) {
+      console.error("Error updating user:", error);
+      alert("Failed to update user.");
+    }
   };
-
-  // const { name, email } = user || {};
 
   return (
     <div>
-      <h1>Edit User</h1>
-      <p>Editing user with ID: {userId}</p>
-      <Button onClick={handleUpdate}>test</Button>
-      {/* 실제 폼을 추가할 수 있습니다 */}
-      {/* <Form onSubmit={(formData) => console.log("form data", formData)}>
-        {({ formProps }) => (
-          <form {...formProps} name="native-validation-example">
-            <Field label="이름" name="name" isRequired defaultValue="">
-              {({ fieldProps }: any) => (
-                <Fragment>
-                  <Textfield
-                    {...fieldProps}
-                    pattern=".{0,20}"
-                    data-testid="nativeFormValidationTest"
-                  />
-                </Fragment>
-              )}
-            </Field>
-            <Field
-              label="Input must be numeric"
-              name="number"
-              isRequired
-              defaultValue=""
-            >
-              {({ fieldProps }: any) => (
-                <Fragment>
-                  <Textfield
-                    {...fieldProps}
-                    type="number"
-                    data-testid="nativeFormValidationTestNumber"
-                  />
-                </Fragment>
-              )}
-            </Field>
-            <Field
-              label="Input must be an email"
-              name="email"
-              isRequired
-              defaultValue=""
-            >
-              {({ fieldProps }: any) => (
-                <Fragment>
-                  <Textfield
-                    {...fieldProps}
-                    type="email"
-                    data-testid="nativeFormValidationTestEmail"
-                  />
-                </Fragment>
-              )}
-            </Field>
-            <FormFooter>
-              <Button type="submit" appearance="primary">
-                Submit
-              </Button>
-            </FormFooter>
-          </form>
-        )}
-      </Form> */}
+      <h2 className="text-2xl font-semibold mb-4">{t("User-Edit")}</h2>
+      <div className="w-4/5 max-w-80">
+        <Form onSubmit={handleSubmit}>
+          {({ formProps }) => (
+            <form {...formProps} name="native-validation-example">
+              <Field
+                label={t("name")}
+                name="name"
+                isRequired
+                defaultValue={user?.name}
+              >
+                {({ fieldProps }) => (
+                  <Fragment>
+                    <Textfield {...fieldProps} pattern=".{0,20}" />
+                  </Fragment>
+                )}
+              </Field>
+              <Field
+                label={t("email")}
+                name="email"
+                isRequired
+                defaultValue={user?.email}
+              >
+                {({ fieldProps }) => (
+                  <Fragment>
+                    <Textfield {...fieldProps} type="email" />
+                  </Fragment>
+                )}
+              </Field>
+              <FormFooter align="start">
+                <Button type="submit" appearance="primary">
+                  {t("Edit")}
+                </Button>
+                <Button
+                  appearance="subtle"
+                  onClick={() => {
+                    navigate(`/users/${userId}`);
+                  }}
+                >
+                  {t("Cancel")}
+                </Button>
+              </FormFooter>
+            </form>
+          )}
+        </Form>
+      </div>
     </div>
   );
 };
