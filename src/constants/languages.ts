@@ -1,10 +1,10 @@
 export const LANGUEAGES = [
   {
     code: "en",
-    name: "영어",
+    name: "EN",
   },
   {
     code: "ko",
-    name: "한국어",
+    name: "KO",
   },
 ] as const;

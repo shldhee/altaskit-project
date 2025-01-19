@@ -1,80 +1,111 @@
+/* eslint-disable @atlaskit/design-system/no-html-button */
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Table } from "@/components/ui/Table";
 import { useUsersQuery } from "@/services/user/useUsersQuery";
-import { OptionType } from "@atlaskit/select";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 type Content = { id: number; name: string; email: string };
+
+interface UserSearchFilterOption {
+  label: string;
+  value: (typeof UserSearchFilterValues)[keyof typeof UserSearchFilterValues];
+}
 
 const UserSearchFilterValues = {
   NAME: "name",
   EMAIL: "email",
 } as const;
 
-const UserSearchFilterOptions: OptionType[] = [
-  { label: "이름", value: UserSearchFilterValues.NAME },
-  { label: "이메일", value: UserSearchFilterValues.EMAIL },
-];
-
 const UserList = () => {
-  const [searchFilter, setSearchFilter] = useState<OptionType>(
-    UserSearchFilterOptions[0]
+  const { t } = useTranslation();
+  const { data } = useUsersQuery();
+  const tableItems = useMemo(() => {
+    return data?.map((user) => ({
+      id: String(user.id),
+      content: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
+      hasChildren: false,
+    }));
+  }, [data]);
+
+  const translatedOptions = useMemo(
+    () => [
+      { label: t("name"), value: UserSearchFilterValues.NAME },
+      { label: t("email"), value: UserSearchFilterValues.EMAIL },
+    ],
+    [t]
+  );
+
+  const [searchFilter, setSearchFilter] = useState<UserSearchFilterOption>(
+    translatedOptions[0]
   );
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [autoCompleteSearchKeyword, setAutoCompleteSearchKeyword] = useState<
     string[]
   >([]);
+  const [filteredData, setFilteredData] = useState(tableItems || []);
 
-  const { data } = useUsersQuery();
+  useEffect(() => {
+    setFilteredData(tableItems || []);
+  }, [tableItems]);
 
-  const tableItems = data?.map((user) => ({
-    id: String(user.id),
-    content: {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-    },
-    hasChildren: false,
-  }));
+  const handleAutoComplete = (value: string) => {
+    if (value === "") return resetAutoComplete();
 
-  const handleAutocomplete = (value: string) => {
-    if (value === "") return setAutoCompleteSearchKeyword([]);
-    if (searchFilter.value === UserSearchFilterValues.NAME) {
-      const autoCompleteSearchKeyword = data
-        ?.filter((user) => {
-          return user.name.includes(value);
-        })
-        .map((user) => user.name);
-      setAutoCompleteSearchKeyword(autoCompleteSearchKeyword || []);
-    } else if (searchFilter.value === UserSearchFilterValues.EMAIL) {
-      const autoCompleteSearchKeyword = data
-        ?.filter((user) => {
-          return user.email.includes(value);
-        })
-        .map((user) => user.email);
-      setAutoCompleteSearchKeyword(autoCompleteSearchKeyword || []);
-    }
+    const autoCompleteSearchKeyword = getFilteredKeywords({
+      value,
+      filterKey: searchFilter.value,
+    });
+    setAutoCompleteSearchKeyword(autoCompleteSearchKeyword || []);
   };
+
+  const resetAutoComplete = () => setAutoCompleteSearchKeyword([]);
+
+  const getFilteredKeywords = ({
+    value,
+    filterKey,
+  }: {
+    value: string;
+    filterKey: (typeof UserSearchFilterValues)[keyof typeof UserSearchFilterValues];
+  }) =>
+    data
+      ?.filter((user) => user[filterKey].includes(value))
+      .map((user) => user[filterKey]);
 
   const handleClickSearch = () => {
-    if (searchFilter.value === UserSearchFilterValues.NAME) {
-      console.log("이름으로 검색", searchKeyword);
-    } else if (searchFilter.value === UserSearchFilterValues.EMAIL) {
-      console.log("이메일로 검색", searchKeyword);
-    }
+    const filteredData = getFilteredData({
+      data: tableItems,
+      filterKey: searchFilter.value,
+      keyword: searchKeyword,
+    });
+    setFilteredData(filteredData || []);
   };
+
+  const getFilteredData = ({
+    data,
+    filterKey,
+    keyword,
+  }: {
+    data: typeof tableItems;
+    filterKey: (typeof UserSearchFilterValues)[keyof typeof UserSearchFilterValues];
+    keyword: string;
+  }) => data?.filter((item) => item.content[filterKey].includes(keyword));
 
   return (
     <div>
-      <h1>User List</h1>
-      <div className="w-96 flex gap-2">
+      <h2 className="text-2xl font-semibold mb-4">{t("User-List")}</h2>
+      <div className="w-full flex gap-2">
         <Select
           className="w-32"
           id="user-search-filter"
-          options={UserSearchFilterOptions}
+          options={translatedOptions}
           value={searchFilter}
           onChange={(e) => {
             if (e) {
@@ -82,27 +113,38 @@ const UserList = () => {
             }
           }}
         />
-        <div className="relative">
+        <div className="relative w-72">
           <Input
-            width={160}
-            placeholder="검색어를 입력하세요"
+            placeholder={t("Please-enter-a-search-term")}
             value={searchKeyword}
             onChange={(e) => {
               const value = e.currentTarget.value;
               setSearchKeyword(value);
-
-              handleAutocomplete(value); // debounce 적용
+              handleAutoComplete(value); // debounce 적용
             }}
           />
           {autoCompleteSearchKeyword.length > 0 && (
-            <ul className="absolute  bg-gray-500 py-1 w-full"></ul>
+            <ul className="absolute  bg-white py-1 w-full z-10">
+              {autoCompleteSearchKeyword.map((keyword, index) => (
+                <li key={index} className="">
+                  <button
+                    className="px-2 py-1 w-full text-left hover:bg-gray-200"
+                    onClick={() => {
+                      setSearchKeyword(keyword);
+                      setAutoCompleteSearchKeyword([]);
+                    }}
+                  >
+                    {keyword}
+                  </button>
+                </li>
+              ))}
+            </ul>
           )}
         </div>
-        <Button onClick={handleClickSearch}>검색</Button>
+        <Button onClick={handleClickSearch}>{t("search")}</Button>
       </div>
-      <div>현재 선택된 searchFilter: {searchFilter.value}</div>
       <Table
-        items={tableItems}
+        items={filteredData}
         columns={[
           (content: Content) => <span>{content.id}</span>,
           (content: Content) => (
@@ -112,9 +154,8 @@ const UserList = () => {
           ),
           (content: Content) => <span>{content.email}</span>,
         ]}
-        headers={["Id", "Name", "Email"]}
-        columnWidths={["200px", "300px"]}
-        label="User Table"
+        headers={["Id", t("name"), t("email")]}
+        columnWidths={["100px", "150px"]}
       />
     </div>
   );

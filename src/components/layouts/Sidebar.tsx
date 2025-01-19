@@ -27,7 +27,7 @@ const Sidebar = () => {
         <div>
           {LANGUEAGES.map(({ code, name }) => (
             <Button key={code} onClick={() => changeLanguage(code)}>
-              {name}
+              {t(name)}
             </Button>
           ))}
         </div>

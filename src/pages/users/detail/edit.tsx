@@ -1,7 +1,7 @@
 // import useUserQuery from "@/services/user/useUserQuery";
 // import useUserUpdate from "@/services/user/useUserUpdate";
 import { useUserQuery } from "@/services/user/useUserQuery";
-import useUserUpdate from "@/services/user/useUserUpdate";
+// import useUserUpdate from "@/services/user/useUserUpdate";
 import Button from "@atlaskit/button/new";
 import React from "react";
 import { useParams } from "react-router-dom";
@@ -9,20 +9,22 @@ import { useParams } from "react-router-dom";
 const UserEdit = () => {
   const { userId } = useParams();
   const { data: user } = useUserQuery(Number(userId));
-  const { updateUserMutation } = useUserUpdate();
+  // const { updateUserMutation } = useUserUpdate();
 
   console.log({ user });
 
   const handleUpdate = async () => {
     if (!user) return;
 
-    await updateUserMutation({
-      id: user.id,
-      user: {
-        name: "test",
-        email: "test@gmail.com",
-      },
-    });
+    console.log("update user", user);
+
+    // await updateUserMutation({
+    //   id: user.id,
+    //   user: {
+    //     name: "test",
+    //     email: "test@gmail.com",
+    //   },
+    // });
   };
 
   // const { name, email } = user || {};

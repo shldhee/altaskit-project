@@ -8,14 +8,28 @@ import LanguageDetector from "i18next-browser-languagedetector";
 const resources = {
   en: {
     translation: {
+      EN: "EN",
+      KO: "KO",
       HOME: "HOME",
       USERS: "USERS",
+      name: "Name",
+      email: "Email",
+      search: "Search",
+      "Please-enter-a-search-term": "Please enter a search term",
+      "User-List": "User List",
     },
   },
   ko: {
     translation: {
+      EN: "영어",
+      KO: "한국어",
       HOME: "홈",
       USERS: "사용자",
+      name: "이름",
+      email: "이메일",
+      search: "검색",
+      "Please-enter-a-search-term": "검색어를 입력해주세요",
+      "User-List": "사용자 목록",
     },
   },
 };
