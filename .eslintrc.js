@@ -25,5 +25,6 @@ module.exports = {
   ],
   rules: {
     "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+    "@atlaskit/design-system/ensure-design-token-usage": "off",
   },
 };
