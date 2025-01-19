@@ -1,5 +1,4 @@
 import { useUserQuery } from "@/services/user/useUserQuery";
-import { UpdatableUser } from "@/types/user";
 import Button from "@atlaskit/button/new";
 import Form, { Field, FormFooter } from "@atlaskit/form";
 import Textfield from "@atlaskit/textfield";
@@ -10,10 +9,10 @@ import { useNavigate, useParams } from "react-router-dom";
 const UserEdit = () => {
   const { userId } = useParams();
   const { t } = useTranslation();
-  const { data: user, isLoading } = useUserQuery(Number(userId));
+  const { data: user } = useUserQuery(Number(userId));
   const navigate = useNavigate();
 
-  const handleSubmit = async (formData: UpdatableUser) => {
+  const handleSubmit = async () => {
     if (!user) return;
 
     try {

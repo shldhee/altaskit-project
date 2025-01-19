@@ -45,31 +45,8 @@ const UserList = () => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [filteredData, setFilteredData] = useState(tableItems || []);
 
-  const handleAutoComplete = (value: string) => {
-    if (value === "") return resetAutoComplete();
-
-    const suggestions = getFilteredKeywords({
-      value,
-      filterKey: searchFilter.value,
-    });
-    setSuggestions(suggestions || []);
-  };
-
-  const resetAutoComplete = () => setSuggestions([]);
-
-  const getFilteredKeywords = ({
-    value,
-    filterKey,
-  }: {
-    value: string;
-    filterKey: (typeof UserSearchFilterValues)[keyof typeof UserSearchFilterValues];
-  }) =>
-    data
-      ?.filter((user) => user[filterKey].includes(value))
-      .map((user) => user[filterKey]);
-
   const handleClickSearch = () => {
-    const filteredData = getFilteredData({
+    const filteredData = filteredByKeyword({
       data: tableItems,
       filterKey: searchFilter.value,
       keyword: searchKeyword,
@@ -77,11 +54,7 @@ const UserList = () => {
     setFilteredData(filteredData || []);
   };
 
-  useEffect(() => {
-    setFilteredData(tableItems || []);
-  }, [tableItems]);
-
-  const getFilteredData = ({
+  const filteredByKeyword = ({
     data,
     filterKey,
     keyword,
@@ -90,6 +63,33 @@ const UserList = () => {
     filterKey: (typeof UserSearchFilterValues)[keyof typeof UserSearchFilterValues];
     keyword: string;
   }) => data?.filter((item) => item[filterKey].includes(keyword));
+
+  const handleSuggestions = (value: string) => {
+    setSuggestions(
+      value === ""
+        ? []
+        : getMatchedSuggestions({
+            value,
+            filterKey: searchFilter.value,
+          })
+    );
+  };
+
+  const getMatchedSuggestions = ({
+    value,
+    filterKey,
+  }: {
+    value: string;
+    filterKey: (typeof UserSearchFilterValues)[keyof typeof UserSearchFilterValues];
+  }) =>
+    (data || [])
+      .filter((user) => user[filterKey].includes(value))
+      .map((user) => user[filterKey])
+      .slice(0, 5);
+
+  useEffect(() => {
+    setFilteredData(tableItems || []);
+  }, [tableItems]);
 
   return (
     <div>
@@ -113,7 +113,7 @@ const UserList = () => {
             onChange={(e) => {
               const value = e.currentTarget.value;
               setSearchKeyword(value);
-              handleAutoComplete(value); // debounce 적용
+              handleSuggestions(value); // debounce 적용
             }}
           />
           {suggestions.length > 0 && (

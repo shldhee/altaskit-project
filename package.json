@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "webpack serve --mode development",
     "build": "webpack --mode production",
-    "start": "serve -s dist"
+    "start": "serve -s dist",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@atlaskit/avatar": "^21.17.8",

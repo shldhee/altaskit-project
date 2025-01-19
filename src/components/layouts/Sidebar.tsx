@@ -3,7 +3,6 @@ import { LANGUEAGES } from "@/constants/constants";
 
 import { changeLanguage } from "@/utils/changeLanguage";
 import {
-  Header,
   LinkItem,
   NavigationHeader,
   NestableNavigationContent,
@@ -26,7 +25,6 @@ const Sidebar = () => {
   return (
     <SideNavigation label="Project navigation" testId="side-navigation">
       <NavigationHeader>
-        <Header description="Sidebar header description">Sidebar Header</Header>
         <div>
           {LANGUEAGES.map(({ code, name }) => (
             <Button key={code} onClick={() => changeLanguage(code)}>
