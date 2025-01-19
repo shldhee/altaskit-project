@@ -64,6 +64,11 @@ const PostList = () => {
   const applyDateFilter = (data: Post[]) => {
     if (!startDate || !endDate) return data;
 
+    if (new Date(startDate) > new Date(endDate)) {
+      alert("시작일이 종료일보다 클 수 없습니다.");
+      return data;
+    }
+
     return data.filter((post) => {
       const postDate = new Date(post.createdAt);
       return (
