@@ -60,7 +60,7 @@
     "@emotion/react" "^11.7.1"
     "@emotion/serialize" "^1.1.0"
 
-"@atlaskit/button@^20.3.0", "@atlaskit/button@^20.3.10":
+"@atlaskit/button@^20.3.0", "@atlaskit/button@^20.3.1", "@atlaskit/button@^20.3.10":
   version "20.3.10"
   resolved "https://registry.yarnpkg.com/@atlaskit/button/-/button-20.3.10.tgz#e08945a8ed2ef3d627b51b2e4a15818c4dd41321"
   integrity sha512-uI5JcY7w/u6fcL8QN478R49iOWjp/Ye4Ykj/I+XzzQJa5RlPs9uZhiOfCrdZLgTS9nd+I9Q4b6ubJ1wYHbIIDw==
@@ -79,6 +79,26 @@
     "@atlaskit/visually-hidden" "^1.5.0"
     "@babel/runtime" "^7.0.0"
     "@emotion/react" "^11.7.1"
+
+"@atlaskit/calendar@^16.2.0":
+  version "16.2.1"
+  resolved "https://registry.yarnpkg.com/@atlaskit/calendar/-/calendar-16.2.1.tgz#1f9c7edce83c67b14d7afc5cff83c9c244f79e30"
+  integrity sha512-1W6MdVBaKwwtVz9sR0I3iNbgh0NAC0A2WPYM38lZwM6Yh3B1uOVHqswkcaOO3oHI5BLEtXljAgDQGGpKe9uzZQ==
+  dependencies:
+    "@atlaskit/analytics-next" "^10.2.0"
+    "@atlaskit/button" "^20.3.0"
+    "@atlaskit/css" "^0.7.0"
+    "@atlaskit/ds-lib" "^3.3.0"
+    "@atlaskit/heading" "^4.0.0"
+    "@atlaskit/icon" "^23.4.0"
+    "@atlaskit/locale" "^2.8.0"
+    "@atlaskit/platform-feature-flags" "*"
+    "@atlaskit/primitives" "^13.3.0"
+    "@atlaskit/theme" "^14.0.0"
+    "@atlaskit/tokens" "^3.1.0"
+    "@babel/runtime" "^7.0.0"
+    "@compiled/react" "^0.18.1"
+    date-fns "^2.17.0"
 
 "@atlaskit/codemod-utils@^4.2.0":
   version "4.2.4"
@@ -122,6 +142,29 @@
     "@babel/runtime" "^7.0.0"
     "@compiled/jest" "^0.10.5"
     "@compiled/react" "^0.18.1"
+
+"@atlaskit/datetime-picker@^15.11.0":
+  version "15.11.0"
+  resolved "https://registry.yarnpkg.com/@atlaskit/datetime-picker/-/datetime-picker-15.11.0.tgz#50e6a9530d7136dc684f5e2b2af2ffc3b14df14b"
+  integrity sha512-OtZgfA1eNheTJZncZ4XJorGSNvxlgqGtUV7znQr2tePCbwvi27mMx80c2zUDth3sDNsLjX7/jpZAaAOFHPcP6g==
+  dependencies:
+    "@atlaskit/analytics-next" "^10.2.0"
+    "@atlaskit/button" "^20.3.1"
+    "@atlaskit/calendar" "^16.2.0"
+    "@atlaskit/ds-lib" "^3.3.0"
+    "@atlaskit/icon" "^23.3.0"
+    "@atlaskit/layering" "^1.0.0"
+    "@atlaskit/locale" "^2.8.0"
+    "@atlaskit/platform-feature-flags" "^0.3.0"
+    "@atlaskit/popper" "^6.3.0"
+    "@atlaskit/primitives" "^13.3.0"
+    "@atlaskit/select" "^18.9.0"
+    "@atlaskit/theme" "^14.0.0"
+    "@atlaskit/tokens" "^3.0.0"
+    "@atlaskit/visually-hidden" "^1.5.0"
+    "@babel/runtime" "^7.0.0"
+    "@emotion/react" "^11.7.1"
+    date-fns "^2.17.0"
 
 "@atlaskit/ds-lib@^3.2.0", "@atlaskit/ds-lib@^3.3.0":
   version "3.3.0"
@@ -246,6 +289,14 @@
     "@babel/runtime" "^7.0.0"
     "@compiled/react" "^0.18.1"
 
+"@atlaskit/locale@^2.8.0":
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/@atlaskit/locale/-/locale-2.8.2.tgz#14b5f015c5063b0c40fbc29d86ac47cfe28adaca"
+  integrity sha512-BHtUHoVuUJxHCQCbLb5nRgQSmqlnifebU8JNnGEb9//tkRlKpqoui6JbE+c0S77IX/mfYA5bhqTT+I+RhQaBxg==
+  dependencies:
+    "@atlaskit/select" "^18.5.0"
+    "@babel/runtime" "^7.0.0"
+
 "@atlaskit/lozenge@^11.12.0":
   version "11.12.6"
   resolved "https://registry.yarnpkg.com/@atlaskit/lozenge/-/lozenge-11.12.6.tgz#f78ad73890a10911f436c61286ae88cbec317622"
@@ -330,7 +381,7 @@
     "@babel/runtime" "^7.0.0"
     memoize-one "^6.0.0"
 
-"@atlaskit/platform-feature-flags@0.3.0", "@atlaskit/platform-feature-flags@^0.3.0":
+"@atlaskit/platform-feature-flags@*", "@atlaskit/platform-feature-flags@0.3.0", "@atlaskit/platform-feature-flags@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@atlaskit/platform-feature-flags/-/platform-feature-flags-0.3.0.tgz#94dfa0a4ef0a140f6ab0a6de006464de925ecea7"
   integrity sha512-/0u5fFJ0Rw2j4M5wzsXgaHO6Ey12oekPCDTRvmmAIp4GO9T2Swbl80bavLAPSOmSHMhHTSuvRxiJveZXfQ21IQ==
@@ -408,7 +459,7 @@
     "@atlaskit/tokens" "^3.0.0"
     "@babel/runtime" "^7.0.0"
 
-"@atlaskit/select@^18.9.3":
+"@atlaskit/select@^18.5.0", "@atlaskit/select@^18.9.0", "@atlaskit/select@^18.9.3":
   version "18.9.3"
   resolved "https://registry.yarnpkg.com/@atlaskit/select/-/select-18.9.3.tgz#fa8f830cb382cf5d5b3e5830439f907324bdec34"
   integrity sha512-ZDvlQxmS1WSe9MVsqnIAuTByTVZ46qjF6scITvNtJQ1tMYPx2dg7QP9aEMG9i6C1Ed2yNV94t91ZCu5wYCaiqQ==
@@ -1368,7 +1419,7 @@
     "@babel/plugin-transform-modules-commonjs" "^7.25.9"
     "@babel/plugin-transform-typescript" "^7.25.9"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.0", "@babel/runtime@^7.10.1", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5", "@babel/runtime@^7.14.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.23.2", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.0", "@babel/runtime@^7.10.1", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5", "@babel/runtime@^7.14.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.21.0", "@babel/runtime@^7.23.2", "@babel/runtime@^7.8.4":
   version "7.26.0"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.26.0.tgz#8600c2f595f277c60815256418b85356a65173c1"
   integrity sha512-FDSOghenHTiToteC/QRlv2q3DhPZ/oOXTBoirfWNx1Cx3TMVcGWQtMMmQcSvb/JjpNeGzx8Pq/b4fKEJuWm1sw==
@@ -3601,6 +3652,13 @@ data-view-byte-offset@^1.0.1:
     call-bound "^1.0.2"
     es-errors "^1.3.0"
     is-data-view "^1.0.1"
+
+date-fns@^2.17.0:
+  version "2.30.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.30.0.tgz#f367e644839ff57894ec6ac480de40cae4b0f4d0"
+  integrity sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==
+  dependencies:
+    "@babel/runtime" "^7.21.0"
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"

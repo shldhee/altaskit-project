@@ -1,10 +1,13 @@
 /* eslint-disable @atlaskit/design-system/no-html-button */
 import { Button } from "@/components/ui/Button";
+import { DatePicker } from "@/components/ui/DatePicker";
 import { Input } from "@/components/ui/Input";
 import { PER_PAGE } from "@/constants/constants";
 import { usePagination } from "@/hooks/usePagination";
 import { usePostsQuery } from "@/services/post/usePostsQuery";
+import { Post } from "@/types/post";
 import { formatISODate } from "@/utils/date";
+// import { DatePicker } from "@atlaskit/datetime-picker";
 import { Label } from "@atlaskit/form";
 import Pagination from "@atlaskit/pagination";
 import SectionMessage from "@atlaskit/section-message";
@@ -43,9 +46,29 @@ const PostList = () => {
       .slice(0, 5);
 
   const handleSearch = () => {
-    setFilteredData(
-      searchKeyword.trim() === "" ? getAllData() : getFilteredData()
-    );
+    const filteredByKeyword = applyKeywordFilter();
+    const filteredByDate = applyDateFilter(filteredByKeyword);
+    setFilteredData(filteredByDate);
+  };
+
+  const applyKeywordFilter = () => {
+    return searchKeyword.trim() === "" ? getAllData() : getFilteredData();
+  };
+
+  const applyDateFilter = (data: Post[]) => {
+    return filterByDate(data);
+  };
+
+  const filterByDate = (data: Post[]) => {
+    if (!startDate || !endDate) return data;
+
+    return data.filter((post) => {
+      const postDate = new Date(post.createdAt);
+      return (
+        postDate >= new Date(startDate as string) &&
+        postDate <= new Date(endDate as string)
+      );
+    });
   };
 
   const getAllData = () => data || [];
@@ -67,6 +90,9 @@ const PostList = () => {
     createdAt: post.createdAt,
     content: post.content,
   }));
+
+  const [startDate, setStartDate] = useState<string | undefined>(undefined);
+  const [endDate, setEndDate] = useState<string | undefined>(undefined);
 
   if (isLoading) {
     return (
@@ -119,6 +145,22 @@ const PostList = () => {
             ))}
           </ul>
         )}
+      </div>
+      <div className="w-4/5 max-w-80">
+        <DatePicker
+          label="Start Date"
+          id="start-date-picker"
+          clearControlLabel="Clear start date"
+          onChange={(date) => setStartDate(date)}
+        />
+      </div>
+      <div className="w-4/5 max-w-80 mb-4">
+        <DatePicker
+          label="End Date"
+          id="end-date-picker"
+          clearControlLabel="Clear end date"
+          onChange={(date) => setEndDate(date)}
+        />
       </div>
       <Button appearance="primary" onClick={handleSearch}>
         {t("Search")}
