@@ -1,4 +1,5 @@
 import Home from "@/pages";
+import TodoList from "@/pages/todos";
 import UserList from "@/pages/users";
 import UserDetail from "@/pages/users/detail";
 import UserEdit from "@/pages/users/detail/edit";
@@ -11,6 +12,7 @@ const AppRoutes = () => (
     <Route path="/users" element={<UserList />} />
     <Route path="/users/:userId" element={<UserDetail />} />
     <Route path="/users/:userId/edit" element={<UserEdit />} />
+    <Route path="/todos" element={<TodoList />} />
   </Routes>
 );
 

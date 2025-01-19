@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 const SIDEBAR_LINKS = [
   { path: "/", label: "HOME" },
   { path: "/users", label: "USERS" },
+  { path: "/todos", label: "TODOS" },
 ];
 
 const Sidebar = () => {

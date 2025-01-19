@@ -172,7 +172,7 @@
     "@atlaskit/icon" "^23.4.0"
     "@babel/runtime" "^7.0.0"
 
-"@atlaskit/icon@^23.3.0", "@atlaskit/icon@^23.4.0":
+"@atlaskit/icon@^23.3.0", "@atlaskit/icon@^23.4.0", "@atlaskit/icon@^23.4.1":
   version "23.4.1"
   resolved "https://registry.yarnpkg.com/@atlaskit/icon/-/icon-23.4.1.tgz#eaffd2df083fb70ba803ca2cac4d6ea6c0d532b2"
   integrity sha512-XdCzucutiJ6AUQZdPIbeP7GgoG6XgesxkJySLKuwgclEwmm2GvltXC3FZCljOof4mRHyzNCU7UiWp2iYwV/GOA==
@@ -326,6 +326,22 @@
     memoize-one "^6.0.0"
     use-isomorphic-layout-effect "^1.1.2"
 
+"@atlaskit/section-message@^6.8.3":
+  version "6.8.3"
+  resolved "https://registry.yarnpkg.com/@atlaskit/section-message/-/section-message-6.8.3.tgz#bfdef784eece7b1ebb89ad816a4853cabf474451"
+  integrity sha512-IYGddvoFkHWoTDcZcEV5Bz/Obfq2B0ae07squIYP/Sl0JWqoUjKaMsVnWc74rUeGAyUat0uUPerKIWF2MWDJeg==
+  dependencies:
+    "@atlaskit/button" "^20.3.0"
+    "@atlaskit/codemod-utils" "^4.2.0"
+    "@atlaskit/css" "^0.7.0"
+    "@atlaskit/heading" "^4.0.0"
+    "@atlaskit/icon" "^23.3.0"
+    "@atlaskit/platform-feature-flags" "^0.3.0"
+    "@atlaskit/primitives" "^13.3.0"
+    "@atlaskit/theme" "^14.0.0"
+    "@atlaskit/tokens" "^3.0.0"
+    "@babel/runtime" "^7.0.0"
+
 "@atlaskit/select@^18.9.3":
   version "18.9.3"
   resolved "https://registry.yarnpkg.com/@atlaskit/select/-/select-18.9.3.tgz#fa8f830cb382cf5d5b3e5830439f907324bdec34"
@@ -366,7 +382,7 @@
     "@babel/runtime" "^7.0.0"
     "@emotion/react" "^11.7.1"
 
-"@atlaskit/spinner@^16.3.0":
+"@atlaskit/spinner@^16.3.0", "@atlaskit/spinner@^16.3.6":
   version "16.3.6"
   resolved "https://registry.yarnpkg.com/@atlaskit/spinner/-/spinner-16.3.6.tgz#755e84b1eae286e09bdb0a94c4b4208cb26ce1e1"
   integrity sha512-H+/I0Xlnmit+kfl5ijqONHXEZAuZqXjmIl9e8TTinYtrWS8zAOTDVOuvnGaO0WPgnKRLzdlHbIg7/WEgOgywyw==
