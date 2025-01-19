@@ -1,10 +1,13 @@
+import Page, { Grid } from "@atlaskit/page";
 import React from "react";
 
 const Home = () => {
   return (
-    <div>
-      <h1>HOME</h1>
-    </div>
+    <Page>
+      <Grid testId="grid">
+        <h1>HO111ME</h1>
+      </Grid>
+    </Page>
   );
 };
 

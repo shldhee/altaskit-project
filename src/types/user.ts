@@ -4,4 +4,6 @@ interface User {
   email: string;
 }
 
-export { User };
+type UpdatableUser = Omit<User, "id">;
+
+export { User, UpdatableUser };

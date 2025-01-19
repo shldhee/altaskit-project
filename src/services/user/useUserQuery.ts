@@ -1,10 +1,10 @@
-import { fetchUsers } from "@/api/user";
+import { fetchUser } from "@/api/user";
 import { useQuery } from "@tanstack/react-query";
 
-const useUsersQuery = () => {
+const useUserQuery = (id: number) => {
   const { data, isLoading } = useQuery({
-    queryKey: ["users"],
-    queryFn: fetchUsers,
+    queryKey: ["user", id],
+    queryFn: () => fetchUser(id),
     onError: (error) => {
       console.log({ error });
     },
@@ -15,4 +15,4 @@ const useUsersQuery = () => {
   };
 };
 
-export { useUsersQuery };
+export { useUserQuery };
